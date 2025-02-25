@@ -1,0 +1,26 @@
+services:
+  web:
+    build: ./fe
+    ports:
+      - "5002:5002"
+    networks:
+      - mynet
+  backend-service:
+    build: ./be
+    ports:
+      - "5003:5001"
+    networks:
+      - mynet
+  mysqldb:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      # create database name crypto_db
+      MYSQL_DATABASE: crypto_db
+    ports:
+      - "3306:3306"
+    networks:
+      - mynet
+networks:
+  mynet:
+    driver: bridge
